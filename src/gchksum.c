@@ -3,7 +3,22 @@
 
 #include "gchksum.h"
 
-int main (int argc, char argv[])
+int main (int argc, char *argv[])
 {
-	return 0;
+  if (argc = 0)
+    usage();
+
+  char strptr[100];
+
+  printf("Please enter a string:\n");
+  scanf("%s", strptr);
+
+  printf("The entered string is:\n%s", strptr);
+
+return 0;
+}
+
+char *usage()
+{
+  printf("You have to supply a file as an argument.\n");
 }
