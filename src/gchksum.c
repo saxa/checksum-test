@@ -18,6 +18,10 @@ int main (int argc, char *argv[])
   scanf("%s", strptr);
 
   printf("The entered string is:\n%s\n", strptr);
+
+
+  GChecksum *md5 = g_checksum_new (MD5);
+
   printf("Checksum of the string in md5 is: %s\n", chksum);
 
 return 0;
