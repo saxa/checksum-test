@@ -4,25 +4,50 @@
 
 #include "gchksum.h"
 
-int main (int argc, char *argv[])
+int main (int argc, char **argv)
 {
-  if (argc = 0){
+  if (argc <= 1){
     usage();
     exit(0);
   }
 
+  FILE *file;
+  int *size = NULL;
   char strptr[100];
-  char chksum[32];
-
-  printf("Please enter a string:\n");
-  scanf("%s", strptr);
-
-  printf("The entered string is:\n%s\n", strptr);
+  const char *chksum = NULL;
 
 
-  GChecksum *md5 = g_checksum_new (MD5);
+  file = fopen(argv[1], "rb");
+  if(!file){
+  	perror("fopen have not funcioned.");
+  	return -2;
+  }
 
-  printf("Checksum of the string in md5 is: %s\n", chksum);
+  // printf("First entered arg is: %s", argv[1]);
+  //printf("Please enter a string:\n");
+  //scanf("%s", strptr);
+
+  //printf("The entered string is:\n%s\n", strptr);
+
+
+  GChecksum *md5 = g_checksum_new(G_CHECKSUM_MD5);
+
+  char *data = NULL;
+  size_t length = 0;
+
+  do
+  {
+  	length = fread(data, 1, MAX_SIZE, file);
+  	g_checksum_update(md5, data, length);
+  }
+  while (length == MAX_SIZE);
+
+  chksum = g_checksum_get_string(md5);
+
+  printf("MD5 checksum of the file is: %s\n", *chksum);
+
+  g_checksum_free(md5);
+  fclose(file);
 
 return 0;
 }
