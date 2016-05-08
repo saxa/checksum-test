@@ -12,8 +12,10 @@ set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR})
 
 # This is needed to use pkg-config
 find_package(PkgConfig)
-pkg_check_modules(GLIB2 glib-2.0 gio-2.0)
-pkg_check_modules(GTK3 gtk+-3.0)
+#find_package(Glib2 2.48.0 REQUIRED)
+pkg_check_modules(GLIB2 glib-2.0>=2.48.0 gio-2.0)
+#find_package(Gtk3 3.20.0 REQUIRED)
+pkg_check_modules(GTK3 gtk+-3.0>=3.20.0)
 
 # The following folder will be included
 # include the cmake modules directory
